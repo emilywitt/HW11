@@ -1,5 +1,5 @@
 # Note: 
-#   Please save this as diagnostic_firstname.txt
+#   Please save this as diagnostic_firstname.py
 #       (replace firstname w/ yours)
 #   Do not edit lines that say: "# Last line in ____"
 ###############################################################################
@@ -8,20 +8,22 @@
 ###############################################################################
 # Write f01 that prints "Hello World!" and calls f02. (three lines)
 def f01():
-
+    print ("Hello World!")
     f02()
 ###############################################################################
 # Write f02 that sets the variables x, y, and z equal to the words 
 # necessary to have the f03 print "i love python!" (five lines)
-
-
-
-
+def f02():
+    x = "i"
+    y = "love"
+    z = "python"
     f03(x,y,z)  # Last line in f2()
 ###############################################################################
 # Finish f03 (replace the ????). 
 def f03(*words):
-    truth = " ".???(words)  # This is broken.
+    # words1 = [word for word in words]
+    # print type(words1), words1 # type(words), words
+    truth = " ".join(words)  # This is broken.
     truth_emphasized = truth + "!"
     print truth_emphasized
     f04(truth)  # Last line in f03()
@@ -29,11 +31,11 @@ def f03(*words):
 # Write f04 that prints truth backwards (edit one line only)
 # Ex. f4("Littlest Bear") prints "raeB tselttiL"
 def f04(string):
-    
+    print string[::-1]
     f05(string)  # Last line in f04()
 ###############################################################################
 # Write f05 that for each char in a word passed as a parameter, prints that 
-# word on a new line, and for each consecutive print, prints it indented by one
+# string on a new line, and for each consecutive print, prints it indented by one
 # more char. (possibly a few lines)
 # Ex. f05("Info")
 # Info
@@ -41,11 +43,10 @@ def f04(string):
 #   Info
 #    Info
 def f05(word):
-
-
-
-
-
+    spaces = 0
+    for char in word:
+        print (" "*spaces + word)
+        spaces += 1
     f06("South Hall", "Python Rocks!")  # Last line in f05()
 ###############################################################################
 # Write f06 that takes two strings:
@@ -59,14 +60,12 @@ def f05(word):
 # 'longer_string' is longer than 'short_string' by 1 chars
 # 'short_string' has only 92.31% the number of chars of longer_string
 def f06(string1, string2):
-
-
-
-
-
-
-
-
+    if len(string1) > len(string2):
+        print ("'" + string1 + "'" + " is longer than '" + string2 + "'" " by " + str(len(string1) - len(string2)) + " chars")
+        print ("'" + string2 + "'" + "has only " + str(len(string2)/float(len(string1))*100)[:5] + "% the number of chars of " + "'" + string1 + "'")
+    if len(string2) > len(string1):
+        print ("'" + string2 + "'" + " is longer than " + "'" + string1 + "'" + " by " + str(len(string2) - len(string1)) + " chars")
+        print ("'" + string1 + "'" + "has only " + str(len(string1)/float(len(string2))*100)[:5] + "% the number of chars of " + "'" + string2 + "'")
     various_solutions()  # Last line in f06()
 ###############################################################################
 # Write f07, f08, f09, f10 to find the sum of all the multiples of 3 or 5 
@@ -83,7 +82,7 @@ def various_solutions():
     while_ = f07()
     for_ = f08()
     list_comprehension = f09()
-    recursion = f10()
+    recursion = f10(500)
     # DO NOT EDIT BELOW THIS LINE
     vals = [while_, for_, list_comprehension, recursion]
     for val in vals:
@@ -97,27 +96,53 @@ def various_solutions():
     f12()
 ###############################################################################
 def f07():
-    
-
-
-
+    sum1 = 0
+    numb = 1
+    while numb < 501:
+        if numb % 3 == 0 and numb % 5 != 0:
+            sum1 += numb
+            numb += 1
+        if numb % 5 == 0 and numb % 3 != 0:
+            sum1 += numb
+            numb += 1
+        if numb % 5 == 0 and numb % 3 == 0:
+            sum1 += numb
+            numb += 1
+        else:
+            numb += 1
+    return sum1
 ###############################################################################
 def f08():
-    
-
-
-
+    sum1 = 0
+    for n in range(1,501):
+        if n % 3 == 0 and n % 5 != 0:
+            sum1 += n
+        if n % 5 == 0 and n % 3 != 0:
+            sum1 += n
+        if n % 5 == 0 and n % 3 == 0:
+            sum1 += n
+        else:
+            pass
+    return sum1
 ###############################################################################
 def f09():
-    
+    return sum([i for i in range(500) if i % 3 == 0 or i % 5 == 0])
 
 
 
 
 
 ###############################################################################
-def f10():
-
+def f10(numb):
+    # numb = 500
+    # if numb == 0:
+    #     return 0
+    # elif numb % 3 == 0 or numb % 5 == 0:
+    #     return numb + f10(numb-1)
+    # else:
+    #     return f10(numb-1)
+    # return numb
+    pass
 
 
 
@@ -130,10 +155,12 @@ def f10():
 # strings, integers if they started as floats, and as the value 0 if they
 # started as ints.
 def f11(args):
-    
-
-
-
+    if type(args) == float:
+        print int(args)
+    if type(args) == int:
+        print 0
+    if type(args) == str:
+        print float(args)
 
 ###############################################################################
 # Write f12() to ask for raw_input from the user. Change the input to a float.
@@ -148,17 +175,25 @@ def f11(args):
 # Ex. printing
 #   [1.0, 1.3, 2.443]
 def f12():
-    
+    with open("log_file.txt", 'w') as f:
+        n = raw_input("Enter values separated by commas: ")
+        input_list = n.split(',')
+        converted = []
+        for i in input_list:
+            try:
+                i == float(i)
+                if i == float(i):
+                    converted = converted.append(float(i))
+            except:
+                f.write(i + '\n')
+        print converted
 
 
-
-
-
-    f13()  # Last line in f12()
+    # f13()  # Last line in f12()
 ###############################################################################
 # Fix the error in f13:
 def f13():
-    for each in "string"
+    for each in "string":
         print each
     f14()  # Last line in f13()
 ###############################################################################
@@ -166,7 +201,7 @@ def f13():
 # You must add an import statement. Please do so at the top of the file.
 # Ex. /Users/dsg/Desktop/python-boot-camp/HW11/diagnostic.py
 def f14():
-    
+    pass
 
 
 
@@ -187,7 +222,7 @@ def f14():
 # [[], [], [], [], [], [], [], [], [0], []]
 # [[], [], [], [], [], [], [], [], [], [0]]
 def f15():
-
+    pass
 
 
 
@@ -200,7 +235,7 @@ def f15():
 # Ex.
 # [1,2,3] and [4,5,6] would produce [(1, 4), (2, 5), (3, 6)]
 def f16(list1, list2):
-    
+    pass
 
 
 
@@ -246,7 +281,7 @@ def f19(d):
 # f21("Yes") = True, f21("NO") = False, 
 # f21("nope") = False, f21("nADA") = False
 def f21(word):
-    
+    pass
 
 
 
@@ -264,7 +299,7 @@ def f21(word):
 # Ex. second print:
 # ['PYTHON!', ['Other1', 'Other_2']]
 def f22():
-    
+    pass
 
 
 
@@ -286,7 +321,7 @@ def f22():
 # row3 = ["","",""]
 # Ex. of print: x, col2
 def f23(lists_):
-
+    pass
 
 
 
@@ -303,13 +338,11 @@ def f23(lists_):
 # Write main() that calls f01, then prints the The Zen of Python, by Tim Peters.
 # (three lines)
 def main():
+    print f01()
 
 
-
-
-
-
-
+if __name__ == '__main__':
+    main()
 # Write the boilerplate code. (two lines)
 
 
