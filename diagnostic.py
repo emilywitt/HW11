@@ -82,7 +82,7 @@ def various_solutions():
     while_ = f07()
     for_ = f08()
     list_comprehension = f09()
-    recursion = f10(500)
+    recursion = f10()
     # DO NOT EDIT BELOW THIS LINE
     vals = [while_, for_, list_comprehension, recursion]
     for val in vals:
@@ -99,17 +99,9 @@ def f07():
     sum1 = 0
     numb = 1
     while numb < 501:
-        if numb % 3 == 0 and numb % 5 != 0:
+        if numb % 3 == 0 or numb % 5 == 0:
             sum1 += numb
-            numb += 1
-        if numb % 5 == 0 and numb % 3 != 0:
-            sum1 += numb
-            numb += 1
-        if numb % 5 == 0 and numb % 3 == 0:
-            sum1 += numb
-            numb += 1
-        else:
-            numb += 1
+        numb += 1
     return sum1
 ###############################################################################
 def f08():
@@ -126,22 +118,22 @@ def f08():
     return sum1
 ###############################################################################
 def f09():
-    return sum([i for i in range(500) if i % 3 == 0 or i % 5 == 0])
+    return sum([i for i in range(501) if i % 3 == 0 or i % 5 == 0])
 
 
 
 
 
 ###############################################################################
-def f10(numb):
-    # numb = 500
-    # if numb == 0:
-    #     return 0
-    # elif numb % 3 == 0 or numb % 5 == 0:
-    #     return numb + f10(numb-1)
-    # else:
-    #     return f10(numb-1)
-    # return numb
+def f10():
+#     numb = 500
+#     if numb == 0:
+#         return 0
+#     elif numb % 3 == 0 or numb % 5 == 0:
+#         return numb + f10(numb-1)
+#     else:
+#         return f10(numb-1)
+#     return numb
     pass
 
 
@@ -175,21 +167,22 @@ def f11(args):
 # Ex. printing
 #   [1.0, 1.3, 2.443]
 def f12():
+    converted_to_float = []
+    not_converted = []
+    user_input = raw_input("Enter a value: ")
+    while user_input.lower() != "done":
+        try:
+            user_input == float(user_input)
+            converted_to_float.append(float(user_input))
+        except:
+            not_converted.append(user_input)
+        user_input = raw_input("Enter a value: ")
+    print converted_to_float
     with open("log_file.txt", 'w') as f:
-        n = raw_input("Enter values separated by commas: ")
-        input_list = n.split(',')
-        converted = []
-        for i in input_list:
-            try:
-                i == float(i)
-                if i == float(i):
-                    converted = converted.append(float(i))
-            except:
-                f.write(i + '\n')
-        print converted
+        for item in not_converted:
+            f.write(item + '\n')
 
-
-    # f13()  # Last line in f12()
+    f13()  # Last line in f12()
 ###############################################################################
 # Fix the error in f13:
 def f13():
@@ -339,6 +332,7 @@ def f23(lists_):
 # (three lines)
 def main():
     print f01()
+    # print f13()
 
 
 if __name__ == '__main__':
